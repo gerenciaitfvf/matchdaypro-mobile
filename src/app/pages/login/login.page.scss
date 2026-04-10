@@ -1,0 +1,13 @@
+:root {
+  ion-content.contenido-centrado {
+    // 1. Convertir el contenedor en un Flex Container
+    display: flex;
+
+    // 2. Centrado Horizontal
+    justify-content: center;
+
+    // 3. Centrado Vertical
+    align-items: center;
+    // Opcional: Centrar el texto dentro del card si es necesario
+  }
+}
