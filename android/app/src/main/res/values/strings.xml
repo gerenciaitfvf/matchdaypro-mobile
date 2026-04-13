@@ -4,4 +4,5 @@
     <string name="title_activity_main">matchdaypro-mobile</string>
     <string name="package_name">com.fvfmatchdaypro.app</string>
     <string name="custom_url_scheme">com.fvfmatchdaypro.app</string>
+    <string name="server_client_id">223157080176-curlkrlroraahn9h1orqk1qm472vgh5o.apps.googleusercontent.com</string>
 </resources>

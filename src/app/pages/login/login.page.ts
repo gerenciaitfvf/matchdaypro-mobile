@@ -12,10 +12,11 @@ import {
   IonItem,
   IonLabel,
   IonButton,
-  IonInput
+  IonInput,
 } from '@ionic/angular/standalone';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,7 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private authService = inject(AuthService);
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
 
@@ -55,5 +57,13 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
   login() {
     console.log('ola');
+  }
+  async loginWithGoogle() {
+    try {
+      const user = await this.authService.loginWithGoogle();
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
