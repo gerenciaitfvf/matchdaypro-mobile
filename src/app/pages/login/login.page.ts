@@ -44,6 +44,7 @@ export class LoginPage implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(AuthService);
+  token: any = localStorage.getItem('token');
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
 
@@ -60,8 +61,12 @@ export class LoginPage implements OnInit {
   }
   async loginWithGoogle() {
     try {
-      const user = await this.authService.loginWithGoogle();
-      console.log(user);
+      let ola = await this.authService.loginWithGoogle();
+      ola.subscribe((res: any) => {
+        localStorage.setItem('token', res);
+        console.log(res);
+        this.router.navigateByUrl('/folder');
+      });
     } catch (error) {
       console.log(error);
     }

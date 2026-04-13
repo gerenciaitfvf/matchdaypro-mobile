@@ -8,4 +8,5 @@ export const environment = {
     messagingSenderId: '223157080176',
     appId: '1:223157080176:web:9da33d4b50f3e77d3864b5',
   },
+  apiurl: 'https://apps.fvf.com.ve/matchdaypro/api',
 };
