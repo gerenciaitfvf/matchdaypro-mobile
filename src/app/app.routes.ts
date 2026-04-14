@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'folder',
     loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
+      import('./pages/folder/folder.page').then((m) => m.FolderPage),
     canActivate: [authGuard],
   },
   {

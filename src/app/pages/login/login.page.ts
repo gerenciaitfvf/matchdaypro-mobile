@@ -8,11 +8,7 @@ import {
   IonRow,
   IonCard,
   IonImg,
-  IonList,
-  IonItem,
-  IonLabel,
   IonButton,
-  IonInput,
 } from '@ionic/angular/standalone';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,11 +29,7 @@ import { AuthService } from '../../services/auth.service';
     IonRow,
     IonCard,
     IonImg,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
-    IonInput,
   ],
 })
 export class LoginPage implements OnInit {
@@ -56,18 +48,28 @@ export class LoginPage implements OnInit {
   });
 
   ngOnInit() {}
-  login() {
-    console.log('ola');
-  }
   async loginWithGoogle() {
     try {
+      this.isLoading.set(true);
+      this.errorMessage.set(null);
+
       let ola = await this.authService.loginWithGoogle();
-      ola.subscribe((res: any) => {
-        localStorage.setItem('token', res);
-        console.log(res);
-        this.router.navigateByUrl('/folder');
-      });
+      ola.subscribe(
+        (res: any) => {
+          this.isLoading.set(false);
+          localStorage.setItem('token', res);
+          this.router.navigateByUrl('/folder');
+        },
+        (err) => {
+          if (err.status === 404) {
+            this.errorMessage.set('Usuario sin permisos para ingresar');
+          }
+          this.isLoading.set(false);
+          console.log(err);
+        },
+      );
     } catch (error) {
+      this.isLoading.set(false);
       console.log(error);
     }
   }

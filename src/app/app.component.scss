@@ -117,3 +117,24 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 40px 20px 20px 20px; 
+  border-bottom: 1px solid #e0e0e0; 
+  margin-bottom: 10px;
+
+  .menu-logo {
+    width: 120px; 
+    height: auto;
+    margin-bottom: 15px; 
+  }
+
+  .menu-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333; 
+  }
+}

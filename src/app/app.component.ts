@@ -11,8 +11,6 @@ import {
   IonMenu,
   IonContent,
   IonList,
-  IonListHeader,
-  IonNote,
   IonMenuToggle,
   IonItem,
   IonIcon,
@@ -36,6 +34,8 @@ import {
   warningSharp,
   bookmarkOutline,
   bookmarkSharp,
+  calendarOutline,
+  calendarSharp,
 } from 'ionicons/icons';
 import { filter } from 'rxjs/operators';
 
@@ -51,8 +51,6 @@ import { filter } from 'rxjs/operators';
     IonMenu,
     IonContent,
     IonList,
-    IonListHeader,
-    IonNote,
     IonMenuToggle,
     IonItem,
     IonIcon,
@@ -63,16 +61,11 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Lista de eventos', url: '/folder', icon: 'calendar' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   private router = inject(Router);
   public mostrarMenu = false;
+  image: string = 'assets/images/logo_fvf.png';
 
   constructor() {
     addIcons({
@@ -90,6 +83,8 @@ export class AppComponent {
       warningSharp,
       bookmarkOutline,
       bookmarkSharp,
+      calendarOutline,
+      calendarSharp,
     });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
