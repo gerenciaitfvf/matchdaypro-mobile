@@ -1,18 +1,109 @@
-<ion-header >
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="capitalize">{{ folder }}</ion-title>
+    <ion-title>Cartelera de Partidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ folder }}</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
+<ion-content color="light" class="mt-5">
+  <form [formGroup]="filterForm" class="filtros-container">
+    <ion-row>
+      <ion-col size="7" offset="5">
+        <ion-item lines="none" class="filtro-item">
+          <ion-select
+            formControlName="estado"
+            label="Estado"
+            labelPlacement="floating"
+          >
+            <ion-select-option value="todos"
+              >Todos los eventos</ion-select-option
+            >
+            <ion-select-option value="programado"
+              >Programados</ion-select-option
+            >
+            <ion-select-option value="finalizado"
+              >Finalizados</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="auto" offset="5">
+        <ion-item lines="none" class="filtro-item">
+          <ion-input
+            formControlName="fecha"
+            type="date"
+            label="Fecha"
+            labelPlacement="floating"
+            [clearInput]="true"
+          >
+          </ion-input>
+          @if (filterForm.get('fecha')?.value){
+          <ion-button
+            slot="end"
+            fill="clear"
+            color="medium"
+            (click)="limpiarFecha()"
+          >
+            <ion-icon color="primary" slot="icon-only" name="close-circle-outline"></ion-icon>
+          </ion-button>
+          }
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+  @if (eventosFiltrados().length ===0){
+  <div class="empty-state">
+    <ion-icon name="calendar-clear-outline"></ion-icon>
+    <h3>No hay eventos</h3>
+    <p>Intenta cambiar los filtros de búsqueda.</p>
+  </div>
+  } @for (evento of eventosFiltrados(); track $index) {
+  <ion-card class="evento-card">
+    <ion-card-header>
+      <div class="badge-container">
+        <ion-badge
+          [color]="evento.estado === 'programado' ? 'success' : 'medium'"
+        >
+          {{ evento.estado | uppercase }}
+        </ion-badge>
+        <span class="fecha-badge">
+          <ion-icon name="calendar-outline"></ion-icon> {{ evento.fecha_evento
+          }}
+        </span>
+      </div>
 
+      <div class="versus-container">
+        <div class="equipo">
+          <h3>{{ evento.equipo_local_nombre }}</h3>
+          <p>{{ evento.equipo_local_colores }}</p>
+        </div>
+        <div class="vs">VS</div>
+        <div class="equipo">
+          <h3>{{ evento.equipo_visitante_nombre }}</h3>
+          <p>{{ evento.equipo_visitante_colores }}</p>
+        </div>
+      </div>
+    </ion-card-header>
 
+    <ion-card-content>
+      <div class="info-row">
+        <ion-icon name="time-outline"></ion-icon>
+        <p>Hora: <strong>{{ evento.hora_evento }}</strong></p>
+      </div>
+      <div class="info-row">
+        <ion-icon name="location-outline"></ion-icon>
+        <p>{{ evento.lugar | titlecase }}</p>
+      </div>
+
+      <ion-button expand="block" class="ion-margin-top">
+        Ver Detalles
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  }
 </ion-content>

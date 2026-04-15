@@ -31,6 +31,17 @@
               </ion-item>
             </ion-menu-toggle>
           }
+          <ion-menu-toggle auto-hide="false">
+            <ion-button lines="none" (click)="logout()">
+              <ion-icon
+                aria-hidden="true"
+                slot="start"
+                [ios]="'log-out-outline'"
+                [md]="'log-out-sharp'"
+              ></ion-icon>
+              <ion-label>Cerrar sesión</ion-label>
+            </ion-button>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
