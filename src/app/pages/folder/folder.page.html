@@ -104,7 +104,11 @@
         <p>{{ evento.lugar | titlecase }}</p>
       </div>
 
-      <ion-button expand="block" class="ion-margin-top">
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        [href]="'/itemlist/'+evento.id_evento"
+      >
         Ver Detalles
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-button>

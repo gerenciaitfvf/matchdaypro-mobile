@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/folder"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Checklist del Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  
+  <form [formGroup]="filterForm" class="filtros-container">
+    <ion-item lines="none" class="filtro-item">
+      <ion-select formControlName="estado" label="Estado" labelPlacement="floating" ngDefaultControl>
+        <ion-select-option value="0">Pendientes</ion-select-option>
+        <ion-select-option value="1">Completadas</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+
+  @if (itemsFiltrados().length === 0) {
+    <div class="empty-state">
+      <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+      <h3>No hay tareas</h3>
+      <p>Intenta con otro filtro.</p>
+    </div>
+  }
+
+  <ion-list lines="none" class="transparent-list">
+    @for (item of itemsFiltrados(); track item.id) {
+      
+      <ion-item-sliding #slidingItem>
+        
+        <ion-item-options side="start">
+          <ion-item-option 
+            [color]="item.completado === 0 ? 'success' : 'warning'" 
+            (click)="toggleEstado(item, slidingItem)">
+            <ion-icon slot="icon-only" [name]="item.completado === 0 ? 'checkmark-circle' : 'arrow-undo'"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item class="card-item" [class.completado]="item.completado === 1">
+          <div class="item-content">
+            <div class="header-row">
+              <span class="tipo-badge">{{ item.tipo | uppercase }}</span>
+              <ion-icon 
+                [name]="item.completado === 1 ? 'checkmark-circle' : 'ellipse-outline'" 
+                [color]="item.completado === 1 ? 'success' : 'medium'"
+                class="status-icon">
+              </ion-icon>
+            </div>
+            
+            <h3>{{ item.nombre }}</h3>
+            <p>{{ item.descripcion }}</p>
+            
+            <div class="footer-row">
+              <span class="time"><ion-icon name="time-outline"></ion-icon> -{{ item.tiempo_antes }} min</span>
+              <span class="order">Orden: {{ item.orden }}</span>
+            </div>
+          </div>
+        </ion-item>
+
+      </ion-item-sliding>
+
+    }
+  </ion-list>
+
+</ion-content>

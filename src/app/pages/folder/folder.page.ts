@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -32,7 +31,7 @@ import {
   closeCircleOutline,
   timeOutline,
   locationOutline,
-  arrowForwardOutline
+  arrowForwardOutline,
 } from 'ionicons/icons';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -76,12 +75,11 @@ export interface Evento {
     IonInput,
     IonCol,
     IonRow,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
 })
 export class FolderPage implements OnInit {
   public folder: string = 'Lista de eventos';
-  private activatedRoute = inject(ActivatedRoute);
   private eventService = inject(EventService);
   private fb = inject(FormBuilder);
   filterForm = this.fb.group({
@@ -102,7 +100,7 @@ export class FolderPage implements OnInit {
       closeCircleOutline,
       timeOutline,
       locationOutline,
-      arrowForwardOutline
+      arrowForwardOutline,
     });
   }
 

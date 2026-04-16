@@ -17,7 +17,7 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
-  IonButton
+  IonButton,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -38,7 +38,7 @@ import {
   calendarOutline,
   calendarSharp,
   logOutOutline,
-  logOutSharp
+  logOutSharp,
 } from 'ionicons/icons';
 import { filter } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
@@ -61,15 +61,15 @@ import { AuthService } from './services/auth.service';
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
-    IonButton
+    IonButton,
   ],
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Lista de eventos', url: '/folder', icon: 'calendar' },
+    { title: 'Cartelera de partidos', url: '/folder', icon: 'calendar' },
   ];
   private router = inject(Router);
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
   public mostrarMenu = false;
   image: string = 'assets/images/logo_fvf.png';
 
@@ -100,9 +100,9 @@ export class AppComponent {
         this.mostrarMenu = !event.urlAfterRedirects.includes('login');
       });
   }
-  logout(){
-    this.authService.logout().then(()=>{
-      this.router.navigateByUrl('login')
-    })
+  logout() {
+    this.authService.logout().then(() => {
+      this.router.navigateByUrl('login');
+    });
   }
 }

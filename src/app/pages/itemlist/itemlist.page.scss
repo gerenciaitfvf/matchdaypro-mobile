@@ -1,0 +1,132 @@
+/* Contenedor del filtro */
+.filtros-container {
+  background: white;
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+
+  .filtro-item {
+    --background: #f4f5f8;
+    --border-radius: 8px;
+  }
+}
+
+/* Para que la lista no ponga un fondo blanco detrás de las tarjetas flotantes */
+.transparent-list {
+  background: transparent;
+  padding: 0 10px;
+}
+
+/* Aquí transformamos el ion-item en una "Tarjeta" */
+.card-item {
+  --background: white;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+
+  /* Transición suave cuando se marca como completado */
+  transition: opacity 0.3s ease;
+
+  /* Estilos internos de nuestro contenido */
+  .item-content {
+    width: 100%;
+    padding: 15px;
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .tipo-badge {
+        font-size: 0.7rem;
+        background: #e0eaff;
+        color: var(--ion-color-primary);
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+      }
+
+      .status-icon {
+        font-size: 1.4rem;
+      }
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 5px 0;
+      white-space: normal; /* Para que textos largos bajen de línea */
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0 0 12px 0;
+      white-space: normal;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #888;
+      border-top: 1px dashed #eee;
+      padding-top: 10px;
+
+      .time {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  /* Modificador visual si el ítem está completado */
+  &.completado {
+    --background: #f9fdfa; /* Fondo ligerísimo verde */
+    opacity: 0.75;
+
+    h3 {
+      text-decoration: line-through; /* Tachamos el texto principal */
+      color: #888;
+    }
+  }
+}
+
+/* Modifica el contenedor del botón de swipe para que mantenga el borde redondeado */
+ion-item-options {
+  margin-bottom: 12px; /* Debe hacer match con el margin-bottom de la card */
+  border-radius: 12px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+
+  ion-icon {
+    font-size: 3.5rem;
+    color: #ccc;
+    margin-bottom: 10px;
+  }
+  h3 {
+    margin: 0 0 5px;
+    color: #555;
+  }
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}

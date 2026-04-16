@@ -19,4 +19,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage),
     canActivate: [publicGuard],
   },
+  {
+    path: 'itemlist/:id',
+    loadComponent: () => import('./pages/itemlist/itemlist.page').then( m => m.ItemlistPage)
+  },
+
 ];
