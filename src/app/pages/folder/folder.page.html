@@ -48,7 +48,11 @@
             color="medium"
             (click)="limpiarFecha()"
           >
-            <ion-icon color="primary" slot="icon-only" name="close-circle-outline"></ion-icon>
+            <ion-icon
+              color="primary"
+              slot="icon-only"
+              name="close-circle-outline"
+            ></ion-icon>
           </ion-button>
           }
         </ion-item>
@@ -61,7 +65,8 @@
     <h3>No hay eventos</h3>
     <p>Intenta cambiar los filtros de búsqueda.</p>
   </div>
-  } @for (evento of eventosFiltrados(); track $index) {
+  } @for (evento of eventosFiltrados() | paginate : { itemsPerPage: 3,
+  currentPage: page, totalItems: eventosFiltrados().length, }; track $index) {
   <ion-card class="evento-card">
     <ion-card-header>
       <div class="badge-container">
@@ -105,5 +110,15 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
+  } @if (eventosFiltrados().length > 3){
+  <ion-row class="ion-justify-content-start">
+    <ion-col size="12">
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        (pageChange)="pagination($event)"
+      ></pagination-controls>
+    </ion-col>
+  </ion-row>
   }
 </ion-content>

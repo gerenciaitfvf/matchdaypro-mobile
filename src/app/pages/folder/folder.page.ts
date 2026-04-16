@@ -34,6 +34,7 @@ import {
   locationOutline,
   arrowForwardOutline
 } from 'ionicons/icons';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export interface Evento {
   id_evento: number;
@@ -75,6 +76,7 @@ export interface Evento {
     IonInput,
     IonCol,
     IonRow,
+    NgxPaginationModule
   ],
 })
 export class FolderPage implements OnInit {
@@ -91,6 +93,7 @@ export class FolderPage implements OnInit {
   filtros = toSignal(this.filterForm.valueChanges, {
     initialValue: this.filterForm.value,
   });
+  page = 1;
   constructor() {
     addIcons({
       calendarOutline,
@@ -111,7 +114,6 @@ export class FolderPage implements OnInit {
     const currentFiltros = this.filtros();
 
     return currentEventos.filter((evento) => {
-      // Validamos estado
       const coincideEstado =
         currentFiltros.estado === 'todos' ||
         evento.estado === currentFiltros.estado;
@@ -130,5 +132,8 @@ export class FolderPage implements OnInit {
   }
   limpiarFecha() {
     this.filterForm.patchValue({ fecha: '' });
+  }
+  pagination(page: number) {
+    this.page = page;
   }
 }
