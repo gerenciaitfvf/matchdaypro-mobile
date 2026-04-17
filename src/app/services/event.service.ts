@@ -13,5 +13,7 @@ export class EventService {
   getAll() {
     return this.http.get(this.URL);
   }
- 
+  getOne(id: number) {
+    return this.http.get(`${this.URL}/${id}`);
+  }
 }

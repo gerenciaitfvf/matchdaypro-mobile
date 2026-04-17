@@ -29,6 +29,8 @@ import {
   ellipseOutline,
   timeOutline,
 } from 'ionicons/icons';
+import { EventService } from '../../services/event.service';
+import { Evento } from '../folder/folder.page';
 export interface ItemEvento {
   id: number;
   id_item: number;
@@ -72,6 +74,7 @@ export class ItemlistPage implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private eventService = inject(EventService);
   id: number = 0;
   filterForm = this.fb.group({
     estado: ['1'],
@@ -80,14 +83,34 @@ export class ItemlistPage implements OnInit {
   filtros = toSignal(this.filterForm.valueChanges, {
     initialValue: this.filterForm.value,
   });
-  itemsFiltrados = computed(() => {
-    const currentItems = this.items();
+  itemsOrdenados = computed(() => {
+    const currentItems = [...this.items()];
     const filtro = this.filtros()?.estado;
 
-    const estadoBuscado = Number(filtro);
-    return currentItems.filter((item) => item.completado === estadoBuscado);
+    if (filtro === 'todos') {
+      return currentItems.sort((a, b) => a.orden - b.orden);
+    }
+
+    const estadoPrioritario = Number(filtro);
+
+    return currentItems.sort((a, b) => {
+      if (
+        a.completado === estadoPrioritario &&
+        b.completado !== estadoPrioritario
+      ) {
+        return -1;
+      }
+      if (
+        a.completado !== estadoPrioritario &&
+        b.completado === estadoPrioritario
+      ) {
+        return 1;
+      }
+      return a.orden - b.orden;
+    });
   });
   user: any;
+  evento?: Evento;
   constructor() {
     addIcons({
       checkmarkDoneCircleOutline,
@@ -107,6 +130,7 @@ export class ItemlistPage implements OnInit {
         return;
       } else {
         this.id = +idParam;
+        this.getEvent(this.id);
         this.getItemlist();
       }
     });
@@ -140,5 +164,24 @@ export class ItemlistPage implements OnInit {
     );
 
     slidingElement.close();
+  }
+  getEvent(id: number) {
+    this.eventService.getOne(id).subscribe((res: any) => {
+      this.evento = res.data;
+    });
+  }
+  calcularHoraItem(tiempoAntes: number): string {
+    if (!this.evento) return '--:--';
+    if (!this.evento.fecha_evento || !this.evento.hora_evento) return '--:--';
+
+    const fechaBase = new Date(
+      `${this.evento.fecha_evento}T${this.evento.hora_evento}`,
+    );
+    const fechaCalculada = new Date(fechaBase.getTime() - tiempoAntes * 60000);
+
+    const horas = fechaCalculada.getHours().toString().padStart(2, '0');
+    const minutos = fechaCalculada.getMinutes().toString().padStart(2, '0');
+
+    return `${horas}:${minutos}`;
   }
 }
