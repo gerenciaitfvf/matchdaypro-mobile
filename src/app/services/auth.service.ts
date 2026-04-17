@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private URL = `${environment.apiurl}/auth`;
+  private http = inject(HttpClient);
+  private jwtHelper = inject(JwtHelperService);
 
-  constructor(private http: HttpClient) {}
   async loginWithGoogle() {
     try {
       const resultado = await FirebaseAuthentication.signInWithGoogle();
@@ -47,5 +49,14 @@ export class AuthService {
       console.error('Error al decodificar el token', error);
       return false;
     }
+  }
+  tokenUser() {
+    let token = localStorage.getItem('token');
+    if (token) {
+      let user: any = this.jwtHelper.decodeToken(token);
+      if (!user.userId) return null;
+      return user;
+    }
+    return null;
   }
 }

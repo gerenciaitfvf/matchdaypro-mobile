@@ -14,7 +14,7 @@ export class ItemService {
   }
   updateStatus(data: any) {
     return this.http.put(
-      `${this.URL}/evento/${data.id}/item/${data.item_id}`,
+      `${this.URL}/evento/${data.idEvento}/item/${data.idItem}`,
       data,
     );
   }

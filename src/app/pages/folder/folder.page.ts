@@ -124,7 +124,6 @@ export class FolderPage implements OnInit {
   });
   getAllEvents() {
     this.eventService.getAll().subscribe((res: any) => {
-      console.log(res);
       this.eventos.set(res.data);
     });
   }
